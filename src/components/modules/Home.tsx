@@ -2,7 +2,7 @@ import React from 'react';
 import { useAppStore } from '../../stores/useAppStore';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { FlaskConical, Brain, BookOpen, Target, TrendingUp, CheckCircle } from 'lucide-react';
+import { FlaskConical, Brain, BookOpen, Target, TrendingUp, CheckCircle, Award } from 'lucide-react';
 
 export const Home: React.FC = () => {
   const { setCurrentView } = useAppStore();
@@ -44,7 +44,7 @@ export const Home: React.FC = () => {
       color: 'text-pink-500',
     },
     {
-      icon: CheckCircle,
+      icon: Award,
       title: 'Knowledge Assessment',
       description: 'Test your understanding with evidence-based questions and detailed explanations.',
       action: () => setCurrentView('assessment'),

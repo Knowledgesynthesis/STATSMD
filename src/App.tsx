@@ -4,6 +4,10 @@ import { Navigation } from './components/layout/Navigation';
 import { Home } from './components/modules/Home';
 import { TestSelector } from './components/modules/TestSelector';
 import { Glossary } from './components/modules/Glossary';
+import { AssumptionChecker } from './components/modules/AssumptionChecker';
+import { RegressionPlayground } from './components/modules/RegressionPlayground';
+import { CaseLibrary } from './components/modules/CaseLibrary';
+import { Assessment } from './components/modules/Assessment';
 
 function App() {
   const { darkMode, currentView } = useAppStore();
@@ -25,48 +29,22 @@ function App() {
         return <TestSelector />;
       case 'glossary':
         return <Glossary />;
+      case 'assumption-checker':
+        return <AssumptionChecker />;
+      case 'regression-playground':
+        return <RegressionPlayground />;
+      case 'cases':
+        return <CaseLibrary />;
+      case 'assessment':
+        return <Assessment />;
       case 'learning':
         return (
           <div className="max-w-7xl mx-auto px-4 py-8">
             <div className="text-center">
               <h2 className="text-2xl font-bold mb-4">Learning Modules</h2>
-              <p className="text-muted-foreground">Coming soon: Interactive learning modules</p>
-            </div>
-          </div>
-        );
-      case 'assumption-checker':
-        return (
-          <div className="max-w-7xl mx-auto px-4 py-8">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold mb-4">Assumption Checker</h2>
-              <p className="text-muted-foreground">Coming soon: Interactive assumption validation tool</p>
-            </div>
-          </div>
-        );
-      case 'regression-playground':
-        return (
-          <div className="max-w-7xl mx-auto px-4 py-8">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold mb-4">Regression Playground</h2>
-              <p className="text-muted-foreground">Coming soon: Interactive regression model explorer</p>
-            </div>
-          </div>
-        );
-      case 'cases':
-        return (
-          <div className="max-w-7xl mx-auto px-4 py-8">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold mb-4">Interactive Cases</h2>
-              <p className="text-muted-foreground">Coming soon: Clinical case scenarios</p>
-            </div>
-          </div>
-        );
-      case 'assessment':
-        return (
-          <div className="max-w-7xl mx-auto px-4 py-8">
-            <div className="text-center">
-              <h2 className="text-2xl font-bold mb-4">Knowledge Assessment</h2>
-              <p className="text-muted-foreground">Coming soon: Quiz and assessment module</p>
+              <p className="text-muted-foreground">
+                Explore the other sections for comprehensive learning materials
+              </p>
             </div>
           </div>
         );
