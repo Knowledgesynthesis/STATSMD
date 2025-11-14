@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ScatterChart, Scatter } from 'recharts';
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { TrendingUp, BarChart3, Activity } from 'lucide-react';
 import type { VariableType } from '../../types';
 
@@ -188,19 +188,25 @@ const regressionModels: RegressionModel[] = [
 ];
 
 // Sample data for visualizations
-const linearData = Array.from({ length: 50 }, (_, i) => ({
-  x: i,
-  y: 20 + 2.5 * i + (Math.random() - 0.5) * 20,
-}));
+const linearData = [
+  { x: 0, y: 22 }, { x: 2, y: 28 }, { x: 4, y: 31 }, { x: 6, y: 38 },
+  { x: 8, y: 42 }, { x: 10, y: 48 }, { x: 12, y: 54 }, { x: 14, y: 58 },
+  { x: 16, y: 65 }, { x: 18, y: 68 }, { x: 20, y: 75 }, { x: 22, y: 79 },
+  { x: 24, y: 85 }, { x: 26, y: 90 }, { x: 28, y: 94 }, { x: 30, y: 102 },
+  { x: 32, y: 105 }, { x: 34, y: 112 }, { x: 36, y: 118 }, { x: 38, y: 122 },
+  { x: 40, y: 130 }, { x: 42, y: 135 }, { x: 44, y: 140 }, { x: 46, y: 145 },
+  { x: 48, y: 152 }, { x: 50, y: 158 },
+];
 
-const logisticData = Array.from({ length: 20 }, (_, i) => {
-  const x = i;
-  const prob = 1 / (1 + Math.exp(-(x - 10) / 2));
-  return {
-    x: x,
-    probability: Math.min(1, Math.max(0, prob + (Math.random() - 0.5) * 0.2)),
-  };
-});
+const logisticData = [
+  { x: 0, probability: 0.02 }, { x: 1, probability: 0.03 }, { x: 2, probability: 0.05 },
+  { x: 3, probability: 0.08 }, { x: 4, probability: 0.12 }, { x: 5, probability: 0.18 },
+  { x: 6, probability: 0.26 }, { x: 7, probability: 0.35 }, { x: 8, probability: 0.45 },
+  { x: 9, probability: 0.55 }, { x: 10, probability: 0.65 }, { x: 11, probability: 0.73 },
+  { x: 12, probability: 0.80 }, { x: 13, probability: 0.85 }, { x: 14, probability: 0.89 },
+  { x: 15, probability: 0.92 }, { x: 16, probability: 0.94 }, { x: 17, probability: 0.96 },
+  { x: 18, probability: 0.97 }, { x: 19, probability: 0.98 },
+];
 
 const countData = [
   { group: 'Control', count: 3.2 },
@@ -243,13 +249,27 @@ export const RegressionPlayground: React.FC = () => {
       case 'linear':
         return (
           <ResponsiveContainer width="100%" height={300}>
-            <ScatterChart>
+            <LineChart data={linearData}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="x" label={{ value: 'Predictor (X)', position: 'insideBottom', offset: -5 }} />
-              <YAxis label={{ value: 'Outcome (Y)', angle: -90, position: 'insideLeft' }} />
-              <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-              <Scatter name="Data Points" data={linearData} fill="#3b82f6" />
-            </ScatterChart>
+              <XAxis
+                dataKey="x"
+                label={{ value: 'Predictor (X)', position: 'insideBottom', offset: -5 }}
+                domain={[0, 50]}
+              />
+              <YAxis
+                label={{ value: 'Outcome (Y)', angle: -90, position: 'insideLeft' }}
+                domain={[0, 170]}
+              />
+              <Tooltip />
+              <Line
+                type="monotone"
+                dataKey="y"
+                stroke="#3b82f6"
+                strokeWidth={2}
+                dot={{ fill: '#3b82f6', r: 4 }}
+                name="Blood Pressure (mmHg)"
+              />
+            </LineChart>
           </ResponsiveContainer>
         );
       case 'logistic':
