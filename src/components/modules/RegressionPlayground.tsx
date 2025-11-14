@@ -188,31 +188,50 @@ const regressionModels: RegressionModel[] = [
 ];
 
 // Sample data for visualizations
-const generateLinearData = () => {
-  return Array.from({ length: 50 }, (_, i) => ({
-    x: i,
-    y: 20 + 2.5 * i + (Math.random() - 0.5) * 20,
-  }));
-};
+const linearData = Array.from({ length: 50 }, (_, i) => ({
+  x: i,
+  y: 20 + 2.5 * i + (Math.random() - 0.5) * 20,
+}));
 
-const generateLogisticData = () => {
-  return Array.from({ length: 20 }, (_, i) => {
-    const x = i;
-    const prob = 1 / (1 + Math.exp(-(x - 10) / 2));
-    return {
-      x: x,
-      probability: Math.min(1, Math.max(0, prob + (Math.random() - 0.5) * 0.2)),
-    };
-  });
-};
+const logisticData = Array.from({ length: 20 }, (_, i) => {
+  const x = i;
+  const prob = 1 / (1 + Math.exp(-(x - 10) / 2));
+  return {
+    x: x,
+    probability: Math.min(1, Math.max(0, prob + (Math.random() - 0.5) * 0.2)),
+  };
+});
 
-const generateCountData = () => {
-  return [
-    { group: 'Control', count: 3.2 },
-    { group: 'Treatment A', count: 1.8 },
-    { group: 'Treatment B', count: 0.9 },
-  ];
-};
+const countData = [
+  { group: 'Control', count: 3.2 },
+  { group: 'Treatment A', count: 1.8 },
+  { group: 'Treatment B', count: 0.9 },
+];
+
+const survivalData = [
+  { time: 0, survival: 1.0 },
+  { time: 6, survival: 0.92 },
+  { time: 12, survival: 0.85 },
+  { time: 18, survival: 0.78 },
+  { time: 24, survival: 0.70 },
+  { time: 30, survival: 0.63 },
+  { time: 36, survival: 0.55 },
+  { time: 42, survival: 0.48 },
+  { time: 48, survival: 0.40 },
+];
+
+const multinomialData = [
+  { treatment: 'Opioid', percentage: 35 },
+  { treatment: 'NSAID', percentage: 42 },
+  { treatment: 'Acetaminophen', percentage: 23 },
+];
+
+const ordinalData = [
+  { severity: 'None', patients: 15 },
+  { severity: 'Mild', patients: 32 },
+  { severity: 'Moderate', patients: 28 },
+  { severity: 'Severe', patients: 12 },
+];
 
 export const RegressionPlayground: React.FC = () => {
   const [selectedModel, setSelectedModel] = useState<string>('linear');
@@ -224,21 +243,21 @@ export const RegressionPlayground: React.FC = () => {
       case 'linear':
         return (
           <ResponsiveContainer width="100%" height={300}>
-            <ScatterChart data={generateLinearData()}>
+            <ScatterChart>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="x" label={{ value: 'Predictor (X)', position: 'bottom' }} />
+              <XAxis dataKey="x" label={{ value: 'Predictor (X)', position: 'insideBottom', offset: -5 }} />
               <YAxis label={{ value: 'Outcome (Y)', angle: -90, position: 'insideLeft' }} />
-              <Tooltip />
-              <Scatter name="Data Points" data={generateLinearData()} fill="#3b82f6" />
+              <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+              <Scatter name="Data Points" data={linearData} fill="#3b82f6" />
             </ScatterChart>
           </ResponsiveContainer>
         );
       case 'logistic':
         return (
           <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={generateLogisticData()}>
+            <LineChart data={logisticData}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="x" label={{ value: 'Predictor Value', position: 'bottom' }} />
+              <XAxis dataKey="x" label={{ value: 'Predictor Value', position: 'insideBottom', offset: -5 }} />
               <YAxis domain={[0, 1]} label={{ value: 'Probability', angle: -90, position: 'insideLeft' }} />
               <Tooltip />
               <Line type="monotone" dataKey="probability" stroke="#8b5cf6" strokeWidth={2} dot={{ r: 4 }} />
@@ -248,12 +267,48 @@ export const RegressionPlayground: React.FC = () => {
       case 'poisson':
         return (
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={generateCountData()}>
+            <BarChart data={countData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="group" />
               <YAxis label={{ value: 'Event Count', angle: -90, position: 'insideLeft' }} />
               <Tooltip />
               <Bar dataKey="count" fill="#10b981" />
+            </BarChart>
+          </ResponsiveContainer>
+        );
+      case 'cox':
+        return (
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={survivalData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="time" label={{ value: 'Time (months)', position: 'insideBottom', offset: -5 }} />
+              <YAxis domain={[0, 1]} label={{ value: 'Survival Probability', angle: -90, position: 'insideLeft' }} />
+              <Tooltip />
+              <Line type="stepAfter" dataKey="survival" stroke="#ef4444" strokeWidth={2} dot={{ r: 3 }} />
+            </LineChart>
+          </ResponsiveContainer>
+        );
+      case 'multinomial':
+        return (
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={multinomialData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="treatment" />
+              <YAxis label={{ value: 'Percentage (%)', angle: -90, position: 'insideLeft' }} />
+              <Tooltip />
+              <Bar dataKey="percentage" fill="#f59e0b" />
+            </BarChart>
+          </ResponsiveContainer>
+        );
+      case 'ordinal':
+        return (
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={ordinalData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="severity" />
+              <YAxis label={{ value: 'Number of Patients', angle: -90, position: 'insideLeft' }} />
+              <Tooltip />
+              <Bar dataKey="patients" fill="#06b6d4" />
             </BarChart>
           </ResponsiveContainer>
         );
