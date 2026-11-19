@@ -1,342 +1,68 @@
-# StatsMD - Statistical Method Navigator
+# StatsMD
 
-![StatsMD](https://img.shields.io/badge/StatsMD-v2.0-blue) ![React](https://img.shields.io/badge/React-18-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue) ![Tailwind](https://img.shields.io/badge/Tailwind-3-blue)
+An interactive, evidence-based course in medical statistics: choose the right analysis, check its assumptions properly, and interpret p-values, confidence intervals, risks, odds, hazards and diagnostic accuracy correctly.
 
-**StatsMD** is a comprehensive, mobile-first educational platform designed to help clinicians, medical students, residents, fellows, and clinical researchers master statistical test selection, assumption validation, and clinical interpretation.
+**Live:** https://statsmd.vercel.app
 
-## 🎯 Mission
+| | |
+|---|---|
+| **Course** | 17 modules, from data types to a full appraisal workflow, each with objectives, worked examples, pitfalls and key takeaways |
+| **Labs** | 16 interactive simulations and calculators (CI coverage, p-value dance, power, 2×2 measures, OR vs RR, Bland–Altman, regression influence, Simpson’s paradox, regression to the mean, Kaplan–Meier, diagnostic Bayes, calibration, multiplicity, forest plot…) |
+| **Test Finder** | Decision tree covering 32 methods, with shareable result links |
+| **Methods atlas** | When to use each method, the assumptions that matter, what to do when they fail, what to report, common mistakes |
+| **Cases** | 14 multi-step clinical cases (design → method → interpretation → trap) |
+| **Question bank** | 67 questions with explanations and spaced-repetition review |
+| **Reference** | 109-term glossary with in-lesson definition popovers, printable cheat sheet, 113 cited sources |
 
-StatsMD addresses a critical challenge in medical research and evidence-based medicine: **choosing the right statistical test** and **interpreting results with clinical relevance**. This interactive tool provides complete guidance from test selection to interpretation.
+## Evidence base
 
-## ✨ Core Features
+Content follows current guidance — CONSORT 2025, SPIRIT 2025, TARGET 2025, STROBE, STARD 2015, TRIPOD+AI 2024, PROBAST+AI 2025, PRISMA 2020, ICH E9(R1), the ASA statements on p-values, and the Cochrane Handbook (v6.5) — plus methodological papers for specific recommendations (e.g., Welch’s t-test by default, N − 1 χ², no preliminary assumption tests, Riley sample-size criteria, RMST and competing risks). Every claim links to its source on the [References](https://statsmd.vercel.app/#/references) page.
 
-### 📊 Test Selection Wizard
-Interactive step-by-step flowchart that guides you through:
-1. Identifying your outcome variable type (continuous, binary, categorical, ordinal, count, time-to-event)
-2. Selecting your study design (RCT, cohort, case-control, cross-sectional, diagnostic accuracy, before-after, time series)
-3. Defining your comparison structure (two groups, multiple groups, paired data, regression, correlation, proportions)
-4. **Receiving personalized test recommendations** with detailed explanations, assumptions, and alternatives
+## How correctness is checked
 
-**16 Statistical Tests Covered**: t-tests, ANOVA, Mann-Whitney U, Wilcoxon, Kruskal-Wallis, Chi-square, Fisher's exact, Linear/Logistic/Poisson/Cox regression, Kaplan-Meier, Pearson/Spearman correlation
+| Check | What it verifies | Command |
+|---|---|---|
+| Statistical engine | Distributions, t/χ²/Fisher/McNemar tests, effect-measure CIs, power, Kaplan–Meier, log-rank, OLS, logistic regression, AUC, p-value adjustment and meta-analysis match SciPy / statsmodels / lifelines reference values | `npm test` |
+| Content integrity | Every glossary link, citation, method alternative and decision-tree branch resolves; every quiz item has one keyed answer; every case step has one correct option; markdown tables are well formed; every source is cited | `npm test` |
+| References | Every DOI resolves on Crossref and its registered title matches the citation | `npm run check:refs` |
+| End to end | All 93 routes at desktop and phone widths: no console errors, no exceptions, no horizontal overflow; Test Finder, case, quiz, popover, lab and theme interactions | `npm run smoke -- http://localhost:4173` |
 
-### 🧠 Assumption Checker
-- **Interactive assumption validation** for all statistical tests
-- Mark assumptions as met or violated
-- Get **instant remedies** when assumptions are violated
-- View **alternative tests** based on violated assumptions
-- Detailed explanations of:
-  - How to check each assumption
-  - Consequences of violations
-  - Statistical remedies available
-
-**6 Core Assumptions**: Normality, Homoscedasticity, Independence, Linearity, Proportional Hazards, No Multicollinearity
-
-### 📈 Regression Playground
-Comprehensive exploration of regression models:
-- **Linear Regression** - Continuous outcomes
-- **Logistic Regression** - Binary outcomes
-- **Poisson Regression** - Count data
-- **Cox Proportional Hazards** - Time-to-event
-- **Multinomial Logistic** - Multiple unordered categories
-- **Ordinal Logistic** - Ordered categories
-
-Each model includes:
-- Mathematical equations
-- When to use guidelines
-- Assumptions and diagnostics
-- Output interpretation (coefficients, ORs, HRs, RRs)
-- Clinical examples
-- Pros and cons
-- Interactive visualizations
-
-### 📝 Interactive Case Library
-**6 Realistic Clinical Scenarios** with:
-- Detailed study descriptions
-- Data characteristics
-- Multiple-choice test selection
-- Immediate feedback on correct/incorrect answers
-- Comprehensive explanations for all options
-- Key learning points
-- Progressive difficulty
-
-Practice scenarios include:
-- Blood pressure RCT
-- Pain score interventions
-- Smoking and lung cancer association
-- Hospital length of stay prediction
-- ICU mortality risk
-- Cancer survival analysis
-
-### 🎓 Knowledge Assessment
-**12 Evidence-Based Questions** covering:
-- Test selection scenarios
-- P-value interpretation
-- Odds ratios vs relative risk
-- Assumption violations
-- Regression interpretation
-- Multiple testing
-- Confidence intervals
-- Study design
-- Data transformations
-
-Features:
-- Three difficulty levels (beginner, intermediate, advanced)
-- Detailed explanations for every answer
-- Progress tracking
-- Session scoring
-- Topical tags for focused review
-
-### 📚 Statistical Glossary
-**20+ Essential Terms** including:
-- p-values
-- Confidence intervals
-- Effect sizes
-- Odds ratios, Relative risk, Hazard ratios
-- Type I & II errors
-- Statistical power
-- Sensitivity & Specificity
-- Confounding
-- Multiple testing
-- Intention-to-treat
-
-Each term includes:
-- Clear definitions
-- Clinical examples
-- Related concepts
-- Searchable and filterable interface
-
-### 🌙 Additional Features
-- **Dark Mode** - Default dark theme with toggle, persists across sessions
-- **Mobile-First Design** - Fully responsive from phone to desktop
-- **State Persistence** - Your progress and preferences are saved
-- **Sticky Navigation** - Easy access to all modules
-- **Educational Disclaimers** - Clear guidance on appropriate use
-
-## 🛠️ Technology Stack
-
-- **Frontend**: React 18 + TypeScript 5
-- **Styling**: Tailwind CSS 4 with custom design tokens
-- **State Management**: Zustand with localStorage persistence
-- **Icons**: Lucide React
-- **Build Tool**: Vite 7
-- **Charts**: Recharts for data visualization
-- **Type Safety**: Full TypeScript coverage
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 18+ or later
-- npm or yarn
-
-### Installation
+## Development
 
 ```bash
-# Install dependencies
 npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
+npm run dev          # http://localhost:5173
+npm run check        # lint + unit/content tests + production build
+npm run build && npx vite preview --port 4173 &
+npm run smoke -- http://localhost:4173   # needs Playwright installed
 ```
 
-The app will be available at `http://localhost:5173`
+Stack: React 19, TypeScript, Vite 7, Tailwind CSS 4, Zustand (progress in localStorage). Charts are hand-built SVG; the statistics engine has no dependencies. Routing is hash-based, so any static host works.
 
-### Deployment to Vercel
-
-This project is optimized for Vercel deployment:
-
-1. Push to GitHub
-2. Import project in Vercel
-3. Vercel will auto-detect Vite and deploy
-4. Done! Your app is live
-
-## 📖 Usage Guide
-
-### For Medical Students (MS2-MS4)
-- Start with **Test Selection Wizard** to learn the decision-making framework
-- Use **Glossary** to understand key statistical concepts
-- Practice with **Interactive Cases** for hands-on learning
-- Take **Assessments** to test your knowledge
-- Revisit **Assumption Checker** when analyzing data
-
-### For Residents & Fellows
-- Use **Test Selector** for research projects and QI initiatives
-- Validate your approach with **Assumption Checker**
-- Explore **Regression Playground** for complex analyses
-- Reference **Glossary** when reading literature
-- Practice with **Cases** before journal clubs
-
-### For Clinical Researchers
-- Navigate complex designs with **Test Selector**
-- Ensure validity with **Assumption Checker**
-- Compare models in **Regression Playground**
-- Use **Cases** for team training
-- Reference all modules when writing methods sections
-
-### For Biostatistics Educators
-- Assign **Cases** as homework
-- Use **Test Selector** for interactive lectures
-- **Assessment** module for quizzes
-- **Assumption Checker** for teaching diagnostics
-- **Regression Playground** for model comparison lessons
-
-## 🎓 Educational Philosophy
-
-StatsMD is built on evidence-based learning principles:
-
-1. **Conceptual Understanding** over rote memorization
-2. **Clinical Relevance** in all examples and interpretations
-3. **Active Learning** through interactive tools
-4. **Immediate Feedback** for all exercises
-5. **Spaced Repetition** through progressive complexity
-6. **Metacognition** via explanations that explain the "why"
-
-## ⚠️ Important Disclaimers
-
-- **Educational Purpose Only**: StatsMD is designed for learning statistical concepts and methods
-- **Not for Clinical Decisions**: This tool does not provide medical advice or clinical decision support
-- **Synthetic Data Only**: All examples and cases use synthetic data
-- **Consult Experts**: Always work with a qualified biostatistician for actual research projects
-- **Verify Results**: Cross-check recommendations with standard references before publication
-
-## 📊 Statistical Content Coverage
-
-### Study Designs (7)
-- Randomized Controlled Trials (RCT)
-- Cohort Studies
-- Case-Control Studies
-- Cross-Sectional Studies
-- Diagnostic Accuracy Studies
-- Before-After Studies
-- Time Series Studies
-
-### Statistical Tests (16)
-**Parametric**: Independent t-test, Paired t-test, One-way ANOVA, Linear Regression, Pearson's Correlation
-
-**Non-Parametric**: Mann-Whitney U, Wilcoxon Signed-Rank, Kruskal-Wallis, Chi-Square, Fisher's Exact, Spearman's Correlation
-
-**Regression**: Linear, Logistic, Poisson, Cox Proportional Hazards, Multinomial Logistic, Ordinal Logistic
-
-**Survival**: Kaplan-Meier, Cox Regression
-
-### Statistical Concepts (20+)
-p-values, Confidence Intervals, Effect Sizes, Odds Ratios, Relative Risk, Hazard Ratios, Number Needed to Treat, Sensitivity, Specificity, PPV, NPV, Type I/II Errors, Power, Confounding, Multicollinearity, Interaction, Multiple Testing, Intent-to-Treat, and more
-
-## 📁 Project Structure
+## Project layout
 
 ```
-STATSMD/
-├── src/
-│   ├── components/
-│   │   ├── ui/              # Reusable UI components (Button, Card)
-│   │   ├── layout/          # Navigation and layout
-│   │   └── modules/         # Feature modules
-│   │       ├── Home.tsx
-│   │       ├── TestSelector.tsx
-│   │       ├── AssumptionChecker.tsx
-│   │       ├── RegressionPlayground.tsx
-│   │       ├── CaseLibrary.tsx
-│   │       ├── Assessment.tsx
-│   │       └── Glossary.tsx
-│   ├── data/
-│   │   └── schemas/         # Data definitions
-│   │       ├── statistical-tests.ts
-│   │       ├── study-designs.ts
-│   │       ├── assumptions.ts
-│   │       ├── glossary.ts
-│   │       ├── case-vignettes.ts
-│   │       └── assessment-questions.ts
-│   ├── stores/              # Zustand state management
-│   │   └── useAppStore.ts
-│   ├── types/               # TypeScript definitions
-│   │   └── index.ts
-│   └── lib/                 # Utilities
-│       └── utils.ts
-├── public/                  # Static assets
-└── dist/                    # Production build
+src/
+  content/        course data: modules-*.ts, questions, cases, methods, decision-tree, glossary, references, labs
+  labs/           one component per interactive lab (lazy-loaded)
+  lib/stats/      statistics engine + reference-value tests
+  lib/            markdown dialect, router, progress store, formatting
+  components/     layout, prose renderer, charts, UI primitives
+  pages/          routes
+scripts/          smoke.mjs (Playwright), check-references.mjs (Crossref)
+docs/             original product brief and plan
 ```
 
-## 🗺️ Development Roadmap
+## Adding content
 
-### ✅ Phase 1 - Core Platform (Completed)
-- ✅ Test Selection Wizard
-- ✅ Statistical Glossary
-- ✅ Dark Mode Support
-- ✅ Mobile-First Design
-- ✅ Core Data Schemas
+Lesson text uses a small markdown dialect (documented in `src/content/types.ts`): `**bold**`, `[[glossary-id]]` for definition popovers, `{{ref-id}}` for citations, pipe tables, lists. Add the source to `references.ts` first; `npm test` fails on any broken link, uncited source or malformed item.
 
-### ✅ Phase 2 - Interactive Learning (Completed)
-- ✅ Assumption Checker Module
-- ✅ Regression Playground
-- ✅ Interactive Case Library (6 cases)
-- ✅ Knowledge Assessment (12 questions)
+## Deployment
 
-### 🔮 Phase 3 - Advanced Features (Future)
-- [ ] Additional case vignettes (20+ total)
-- [ ] More assessment questions (50+ total)
-- [ ] Sample size calculator
-- [ ] Effect size calculator
-- [ ] Power analysis tool
-- [ ] Data visualization explorer
-- [ ] Personalized learning paths
-- [ ] Progress certificates
+Vercel builds `main` automatically (`npm run build`, output `dist/`; see `vercel.json`). Pull requests get preview deployments.
 
-## 🤝 Contributing
+## Scope
 
-Contributions are welcome! This is an educational project aimed at improving statistical literacy in medicine.
+StatsMD teaches methods and appraisal. For your own study’s analysis plan, involve a statistician early.
 
-### Areas for Contribution
-- Additional statistical tests and methods
-- More clinical case scenarios
-- Additional assessment questions
-- Improved explanations and visualizations
-- Bug fixes and performance improvements
-- Accessibility enhancements
-- Translations/localization
-
-### Guidelines
-- Ensure statistical accuracy (cite sources)
-- Use clinically relevant examples
-- Follow existing code patterns
-- Add TypeScript types
-- Update documentation
-- Test thoroughly
-
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙏 Acknowledgments
-
-- Inspired by the need for better statistical education in clinical medicine
-- Built following evidence-based instructional design principles
-- Content draws on standard biostatistics textbooks and guidelines (CONSORT, STROBE, ICH E9)
-- Special thanks to the medical education and biostatistics communities
-
-## 🔗 Recommended Resources
-
-### Essential Reading
-- *Epidemiology* by Leon Gordis
-- *Biostatistics: The Bare Essentials* by Norman & Streiner
-- *Statistics in Medicine* by Colton
-- *Designing Clinical Research* by Hulley et al.
-- CONSORT Statement for RCT reporting
-- STROBE Guidelines for observational studies
-
-### Online Resources
-- [StatQuest with Josh Starmer](https://statquest.org/)
-- [Cochrane Training](https://training.cochrane.org/)
-- [JASP Statistics](https://jasp-stats.org/)
-
----
-
-**Built with ❤️ for medical education and evidence-based practice**
-
-*Version 2.0.0 - November 2025*
-
-**Star ⭐ this repo if you find it helpful!**
+No licence file has been added yet; add one before others reuse the code or content.

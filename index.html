@@ -2,12 +2,31 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>statsmd-app</title>
+    <title>StatsMD — Medical statistics, from test choice to interpretation</title>
+    <meta
+      name="description"
+      content="An interactive, evidence-based course in medical statistics: choose the right test, check assumptions properly, and interpret p-values, confidence intervals, risks, odds, hazards and diagnostic accuracy correctly."
+    />
+    <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f4f1" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <script>
+      // Apply the saved theme before first paint to avoid a flash.
+      (function () {
+        try {
+          var s = JSON.parse(localStorage.getItem('statsmd-v3') || '{}');
+          var t = (s.state && s.state.theme) || 'system';
+          var dark = t === 'dark' || (t === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+          if (dark) document.documentElement.classList.add('dark');
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>StatsMD needs JavaScript for its interactive labs.</noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
