@@ -1,54 +1,244 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Design tokens. Chart palette and chrome follow a CVD-validated categorical
+   order (blue, orange, aqua); dark mode is stepped separately, not inverted. */
+:root {
+  color-scheme: light;
+  --bg: #f4f4f1;
+  --surface: #fcfcfb;
+  --surface-2: #efeeea;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #6b6a65;
+  --line: #e1e0d9;
+  --line-strong: #c3c2b7;
+  --primary: #256abf;
+  --primary-ink: #ffffff;
+  --primary-text: #1c5cab;
+  --primary-soft: #e6effb;
+  --good: #0ca30c;
+  --good-text: #006300;
+  --good-soft: #e5f4e5;
+  --warn: #fab219;
+  --warn-text: #7a4d00;
+  --warn-soft: #fdf3dc;
+  --bad: #d03b3b;
+  --bad-text: #a82828;
+  --bad-soft: #fae7e7;
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --s3: #1baf7a;
+  --s4: #6250d6;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #0d0d0d;
+  --surface: #1a1a19;
+  --surface-2: #242422;
+  --ink: #f0efec;
+  --ink-2: #c3c2b7;
+  --muted: #9a988f;
+  --line: #2f2f2c;
+  --line-strong: #45453f;
+  --primary: #3987e5;
+  --primary-ink: #0b0b0b;
+  --primary-text: #6da7ec;
+  --primary-soft: #16263a;
+  --good: #0ca30c;
+  --good-text: #3fc23f;
+  --good-soft: #13280f;
+  --warn: #fab219;
+  --warn-text: #fab219;
+  --warn-soft: #2e2410;
+  --bad: #e66767;
+  --bad-text: #ef8a8a;
+  --bad-soft: #321515;
+  --s1: #3987e5;
+  --s2: #d95926;
+  --s3: #199e70;
+  --s4: #9085e9;
+  --grid: #2c2c2a;
+  --axis: #45453f;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-primary: var(--primary);
+  --color-primary-ink: var(--primary-ink);
+  --color-primary-text: var(--primary-text);
+  --color-primary-soft: var(--primary-soft);
+  --color-good: var(--good);
+  --color-good-text: var(--good-text);
+  --color-good-soft: var(--good-soft);
+  --color-warn: var(--warn);
+  --color-warn-text: var(--warn-text);
+  --color-warn-soft: var(--warn-soft);
+  --color-bad: var(--bad);
+  --color-bad-text: var(--bad-text);
+  --color-bad-soft: var(--bad-soft);
+  --color-s1: var(--s1);
+  --color-s2: var(--s2);
+  --color-s3: var(--s3);
+  --color-s4: var(--s4);
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
   }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
-  }
-
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-    font-feature-settings: "rlig" 1, "calt" 1;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  *,
+  ::before,
+  ::after {
+    border-color: var(--line);
+  }
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  input[type="range"] {
+    accent-color: var(--primary);
+  }
+  ::selection {
+    background: var(--primary-soft);
+  }
+}
+
+/* Long-form lesson text */
+.prose-md {
+  font-size: 1rem;
+  color: var(--ink);
+}
+.prose-md p,
+.prose-md ul,
+.prose-md ol,
+.prose-md table,
+.prose-md pre,
+.prose-md blockquote {
+  margin: 0 0 0.9em;
+}
+.prose-md > :last-child {
+  margin-bottom: 0;
+}
+.prose-md h3 {
+  font-size: 1.05rem;
+  font-weight: 650;
+  margin: 1.3em 0 0.4em;
+}
+.prose-md ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.prose-md ol {
+  list-style: decimal;
+  padding-left: 1.35rem;
+}
+.prose-md li {
+  margin: 0.25em 0;
+}
+.prose-md li::marker {
+  color: var(--muted);
+}
+.prose-md strong {
+  font-weight: 650;
+}
+.prose-md code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--surface-2);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+.prose-md pre {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  background: var(--surface-2);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  white-space: pre;
+  line-height: 1.5;
+}
+.prose-md pre code {
+  background: none;
+  padding: 0;
+}
+.prose-md a {
+  color: var(--primary-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-md blockquote {
+  border-left: 3px solid var(--primary);
+  padding: 0.25rem 0 0.25rem 0.9rem;
+  color: var(--ink-2);
+}
+.prose-md .table-wrap {
+  overflow-x: auto;
+  margin: 0 0 0.9em;
+}
+.prose-md table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9rem;
+  margin: 0;
+}
+.prose-md th,
+.prose-md td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.45rem 0.6rem;
+  text-align: left;
+  vertical-align: top;
+}
+.prose-md th {
+  font-weight: 650;
+  color: var(--ink-2);
+  background: var(--surface-2);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
   }
 }
